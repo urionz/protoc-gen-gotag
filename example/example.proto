@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package example;
+
+import "tagger/tagger.proto";
+
+option go_package = "github.com/urionz/protoc-gen-gotag/example";
+
+message Example {
+    string with_new_tags = 1 [(tagger.tags) = {
+        tag: {
+            key: "graphql",
+            value: "withNewTags,optional"
+        }
+    }];
+    string with_new_multiple = 2 [(tagger.tags) = {
+        tag: {
+            key: "graphql",
+            value: "withNewTags,optional"
+        },
+        tag: {
+            key: "xml",
+            value: "multi,omitempty"
+        }
+    }];
+    
+    optional string replace_default = 3 [(tagger.tags) = {
+        tag: {
+            key: "json",
+            value: "replacePrevious"
+        }
+    }] ;
+
+    oneof one_of {
+        option (tagger.oneof_tags) = {
+            tag: {
+                key: "graphql",
+                value: "withNewTags,optional"
+            }
+        };
+        string a = 5 [(tagger.tags) = {
+            tag: {
+                key: "json",
+                value: "A"
+            }
+        }];
+        int32 b_jk = 6 [(tagger.tags) = {
+            tag: {
+                key: "json",
+                value: "b_Jk"
+            }
+        }];
+    }
+}
+
+message SecondMessage {
+    string with_new_tags = 1 [(tagger.tags) = {
+        tag: {
+            key: "graphql",
+            value: "withNewTags,optional"
+        }
+    }];
+    string with_new_multiple = 2 [(tagger.tags) = {
+        tag: {
+            key: "graphql",
+            value: "withNewTags,optional"
+        },
+        tag: {
+            key: "xml",
+            value: "multi,omitempty"
+        }
+    }];
+    
+    string replace_default = 3 [(tagger.tags) = {
+        tag: {
+            key: "json",
+            value: "replacePrevious"
+        }
+    }] ;
+}
+
+message ThirdExample {
+    message InnerExample {
+        string id = 1 [(tagger.tags) = {
+            tag: {
+                key: "json",
+                value: "yes"
+            }
+        }];
+        int32 yes = 2 [(tagger.tags) = {
+            tag: {
+                key: "json",
+                value: "id"
+            }
+        }];
+    }
+
+    InnerExample inner_example = 1 [(tagger.tags) = {
+        tag: {
+            key: "json",
+            value: "inner"
+        }
+    }];
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package tagger;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/urionz/protoc-gen-gotag/tagger;tagger";
+
+message Tag {
+    map<string, string> tag = 1;
+}
+
+// Tags are applied at the field level
+extend google.protobuf.FieldOptions {
+    // Multiple Tags can be specified.
+    repeated Tag tags = 847939;
+}
+
+extend google.protobuf.OneofOptions {
+    // Multiple Tags can be specified.
+    repeated Tag oneof_tags = 847939;
+}
